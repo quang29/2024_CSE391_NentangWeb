@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Nhân viên</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <h1>Quản lý Nhân viên</h1>
+        <div class="add-btn-wrapper">
+          <button type="button" class="add-btn">Thêm nhân viên</button>
+        
+      </div>
+        <form action="#">
+            <div class="search-bar">
+                <input type="text" placeholder="Nhập nội dung tìm kiếm">
+                <button type="submit">Tìm</button>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Họ và tên</th>
+                        <th>Thư điện tử</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nguyễn Văn A</td>
+                        <td>nguyenvana@example.com</td>
+                        <td>Hà Nội, Việt Nam</td>
+                        <td>0123456789</td>
+                        <td>
+                          <a href="#" class="edit-btn">
+                            <i class="fas fa-edit" style="color: yellow;"></i> 
+                          </a>
+                          <a href="#" class="delete-btn">
+                            <i class="fas fa-trash-alt" style="color: red;"></i> 
+                          </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Trần Thị B</td>
+                        <td>tranthib@example.com</td>
+                        <td>TP Hồ Chí Minh, Việt Nam</td>
+                        <td>0987654321</td>
+                        <td>
+                          <a href="#" class="edit-btn">
+                            <i class="fas fa-edit" style="color: yellow;"></i> 
+                          </a>
+                          <a href="#" class="delete-btn">
+                            <i class="fas fa-trash-alt" style="color: red;"></i> 
+                          </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Lê Văn C</td>
+                        <td>levanc@example.com</td>
+                        <td>Đà Nẵng, Việt Nam</td>
+                        <td>0123456789</td>
+                        <td>
+                          <a href="#" class="edit-btn">
+                            <i class="fas fa-edit" style="color: yellow;"></i> 
+                          </a>
+                          <a href="#" class="delete-btn">
+                            <i class="fas fa-trash-alt" style="color: red;"></i> 
+                          </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Phạm Thị D</td>
+                        <td>phamthid@example.com</td>
+                        <td>Cần Thơ, Việt Nam</td>
+                        <td>0987654321</td>
+                        <td>
+                          <a href="#" class="edit-btn">
+                            <i class="fas fa-edit" style="color: yellow;"></i> 
+                          </a>
+                          <a href="#" class="delete-btn">
+                            <i class="fas fa-trash-alt" style="color: red;"></i> 
+                          </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Đặng Văn E</td>
+                        <td>dangvane@example.com</td>
+                        <td>Hải Phòng, Việt Nam</td>
+                        <td>0123456789</td>
+                        <td>
+                          <a href="#" class="edit-btn">
+                            <i class="fas fa-edit" style="color: yellow;"></i> 
+                          </a>
+                          <a href="#" class="delete-btn">
+                            <i class="fas fa-trash-alt" style="color: red;"></i> 
+                          </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <a href="#">Trước</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">Sau</a>
+            </div>
+
+          
+        </form>
+    </div>
+</body>
+</html>
