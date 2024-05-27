@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#a1{
+    color: red;
+    border-left: 5px red solid;
+    padding-left: 5px;
+    font-size: 20px;
+    font-weight: bold;
+} 
