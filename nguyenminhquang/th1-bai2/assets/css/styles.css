@@ -10,7 +10,7 @@
     margin: 10px;
 }
 
-#mian {
+#main {
     display: flex;
     justify-content: center; /* căn giữa theo chiều ngang */
     align-items: center; /* căn giữa theo chiều dọc */
@@ -37,4 +37,5 @@ h3 {
 
 ul {
     padding-top: 10px;
+    list-style-type: none;
 }
