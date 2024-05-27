@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ứng dụng quản lý sinh viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="container mx-auto p-4">
+
+<h2 class="text-2xl font-bold mb-4">Thêm sinh viên</h2>
+<form id="formSinhVien" class="mb-8">
+    <div class="mb-4">
+        <label for="hoTen" class="block text-gray-700 text-sm font-bold mb-2">Họ tên:</label>
+        <input type="text" id="hoTen" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <div class="mb-4">
+        <label for="maSV" class="block text-gray-700 text-sm font-bold mb-2">Mã SV:</label>
+        <input type="text" id="maSV" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <div class="mb-4">
+        <label for="ngaySinh" class="block text-gray-700 text-sm font-bold mb-2">Ngày sinh:</label>
+        <input type="date" id="ngaySinh" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <div class="mb-4">
+        <label for="lop" class="block text-gray-700 text-sm font-bold mb-2">Lớp:</label>
+        <input type="text" id="lop" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <div class="flex items-center justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Thêm
+        </button>
+        <button type="submit" class="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Sửa
+        </button>
+        <button type="button" id="btnXoa" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Xoá
+        </button>
+    </div>
+</form>
+
+<h2 class="text-2xl font-bold mb-4">Danh sách sinh viên</h2>
+<!-- py-2 px-4 -->
+<table id="bangSinhVien" class="table-auto  w-full border-collapse border-gray-300"> 
+    <thead>
+    <tr>
+        <th class="px-4 py-2 border border-gray-300">Họ tên</th>
+        <th class="px-4 py-2 border border-gray-300">Mã SV</th>
+        <th class="px-4 py-2 border border-gray-300">Ngày sinh</th>
+        <th class="px-4 py-2 border border-gray-300">Lớp</th>
+        <th class="px-4 py-2 border border-gray-300">Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+    // JavaScript (bạn sẽ viết các hàm xử lý sự kiện tại đây)
+    document.getElementById("formSinhVien").addEventListener("submit", function(event) {
+        event.preventDefault();  // Ngăn chặn form submit mặc định
+        const hoTen = document.getElementById("hoTen").value;
+    const maSV = document.getElementById("maSV").value;
+    const ngaySinh = document.getElementById("ngaySinh").value;
+    const lop = document.getElementById("lop").value;
+
+    // Basic validation (you'll need to add more robust validation) // Validate dữ liệu
+    if (!hoTen || !maSV || !ngaySinh || !lop) {
+        alert("Vui lòng nhập đầy đủ thông tin."); 
+        return;
+    }
+      // Lấy dữ liệu từ form
+    const sinhVien = {
+        hoTen: hoTen,
+        maSV: maSV,
+        ngaySinh: ngaySinh,
+        lop: lop
+    };
+
+    // Get existing students from local storage or initialize an empty array
+    let danhSachSinhVien = JSON.parse(localStorage.getItem('danhSachSinhVien')) || [];
+
+    // Add new student to the array
+    danhSachSinhVien.push(sinhVien);
+
+    // Update local storage
+    localStorage.setItem('danhSachSinhVien', JSON.stringify(danhSachSinhVien));
+
+    // Add new row to the table
+    themSinhVienVaoBang(sinhVien);
+
+    // Clear form fields after adding
+    document.getElementById("formSinhVien").reset(); 
+});
+// Thêm sinh viên vào bảng và localStorage
+function themSinhVienVaoBang(sinhVien) {
+    const tableBody = document.querySelector("#bangSinhVien tbody");
+    const newRow = tableBody.insertRow();
+    const cells = ["hoTen", "maSV", "ngaySinh", "lop"];
+
+    cells.forEach(cell => {
+        const newCell = newRow.insertCell();
+        newCell.textContent = sinhVien[cell];
+    });
+
+    // Add actions cell (edit/delete buttons) - Customize as needed
+    const actionsCell = newRow.insertCell();
+    actionsCell.innerHTML = `
+        <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">Sửa</button>
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">Xoá</button>
+    `;
+    capNhatLocalStorage();
+    //update local storage after new student
+}
+function capNhatLocalStorage() {
+    const tableBody = document.querySelector("#bangSinhVien tbody");
+    const danhSachSinhVien = [];
+
+    // Iterate through table rows and extract student data
+    for (let i = 0; i < tableBody.rows.length; i++) {
+        const row = tableBody.rows[i];
+        danhSachSinhVien.push({
+            hoTen: row.cells[0].textContent,
+            maSV: row.cells[1].textContent,
+            ngaySinh: row.cells[2].textContent,
+            lop: row.cells[3].textContent
+        });
+    }
+
+    // Update localStorage
+    localStorage.setItem('danhSachSinhVien', JSON.stringify(danhSachSinhVien));
+}
+    // Hàm hiển thị danh sách sinh viên từ localStorage khi trang tải
+    function hienThiDanhSachSinhVien() {
+        const tableBody = document.querySelector("#bangSinhVien tbody");
+    const danhSachSinhVien = JSON.parse(localStorage.getItem('danhSachSinhVien')) || [];
+
+    tableBody.innerHTML = ''; // Clear existing rows
+
+    danhSachSinhVien.forEach(sinhVien => {
+        themSinhVienVaoBang(sinhVien);
+    });
+    }
+
+    // Gọi hàm hiển thị danh sách khi trang tải
+    hienThiDanhSachSinhVien();
+</script>
+
+</body>
+</html>
