@@ -1,0 +1,61 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #002147; /* Màu xanh đậm */
+    color: white;
+  }
+  
+  header {
+    display: flex; /* Sử dụng flexbox để căn chỉnh logo và menu */
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .logo img {
+    max-height: 50px; /* Điều chỉnh kích thước logo */
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  nav li {
+    margin-left: 2rem;
+  }
+  
+  main {
+    padding: 2rem;
+  }
+  
+  .info {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .links {
+    display: flex;
+  }
+  
+  .links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .links li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .counter {
+    text-align: right;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 1rem;
+  }
+  
