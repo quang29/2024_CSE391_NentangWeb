@@ -1,0 +1,66 @@
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+  }
+  
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  
+  button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  
+  footer {
+    font-size: 14px;
+    color: #666;
+    text-align: left;
+    margin-top: 20px;
+  }
+  .container {
+    width: 400px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
+  }
+  .forgot-password {
+    float: right;
+  }
+  
+
+  body {
+    background-image: url("img/tai-hinh-nen-vu-tru-cho-may-tinh-1.jpg"); 
+    background-repeat: no-repeat;          
+    background-size: cover;               
+    background-position: center center;    
+  }
+  
+    
+
+  

@@ -1,0 +1,7 @@
+[
+  { "id": 1, "task": "Học React", "priority": "High" },
+  { "id": 2, "task": "Đi chợ", "priority": "Medium" },
+  { "id": 3, "task": "Đọc sách", "priority": "Low" },
+  { "id": 4, "task": "Chạy bộ", "priority": "Medium" },
+  { "id": 5, "task": "Nấu ăn", "priority": "High" }
+]
