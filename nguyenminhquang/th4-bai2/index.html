@@ -3,9 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quản lý sinh viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
 </head>
-<body>
-    
+<body class="container mx-auto p-4">
+
+    <h2 class="text-2xl font-bold mb-4">Quản lý sinh viên</h2>
+
+    <div class="mb-4">
+        <label for="lop" class="block text-gray-700 text-sm font-bold mb-2">Chọn lớp:</label>
+        <select id="lop" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </select>
+    </div>
+
+    <h3 class="text-xl font-bold mb-2">Danh sách sinh viên</h3>
+    <table id="bangSinhVien" class="table-auto w-full">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">Họ tên</th>
+                <th class="px-4 py-2">Mã SV</th>
+                <th class="px-4 py-2">Ngày sinh</th>
+                <th class="px-4 py-2">Hành động</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Modal Form Sinh Viên -->
+    <div id="formSinhVienModal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Thêm/Sửa sinh viên</h3>
+                <div>
+                    <label for="hoTen" class="block text-sm font-medium text-gray-700">Họ tên</label>
+                    <input type="text" name="hoTen" id="hoTen" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+                <div class="mt-4">
+                    <label for="maSV" class="block text-sm font-medium text-gray-700">Mã số sinh viên</label>
+                    <input type="text" name="maSV" id="maSV" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+                <div class="mt-4">
+                    <label for="ngaySinh" class="block text-sm font-medium text-gray-700">Ngày sinh</label>
+                    <input type="date" name="ngaySinh" id="ngaySinh" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+                <div class="mt-4">
+                    <button type="button" id="saveBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:col-start-2 sm:text-sm">Lưu</button>
+                </div>
+                <div class="mt-4">
+                    <button type="button" id="cancelBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:col-start-2 sm:text-sm">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Đọc dữ liệu từ data.json và hiển thị danh sách lớp vào dropdown
+            $.getJSON("data.json", function(data) {
+                // Hiển thị danh sách lớp
+                let options = data.map(lop => `<option value="${lop.tenLop}">${lop.tenLop}</option>`);
+                $('#lop').html(options);
+
+                // Hiển thị sinh viên của lớp đầu tiên
+                displayStudents(data[0].sinhVien);
+            });
+
+            // Xử lý sự kiện khi chọn lớp từ dropdown
+            $("#lop").change(function() {
+                let selectedClass = $(this).val();
+                $.getJSON("data.json", function(data) {
+                    let selectedClassData = data.find(lop => lop.tenLop === selectedClass);
+                    displayStudents(selectedClassData.sinhVien);
+                });
+            });
+
+            // Hàm hiển thị danh sách sinh viên
+            function displayStudents(students) {
+                let rows = students.map(student => `
+                    <tr>
+                        <td class="border px-4 py-2">${student.hoTen}</td>
+                        <td class="border px-4 py-2">${student.maSV}</td>
+                        <td class="border px-4 py-2">${student.ngaySinh}</td>
+                        <td class="border px-4 py-2">
+                            <button class="editBtn bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded" data-masv="${student.maSV}">Sửa</button>
+                            <button class="deleteBtn bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" data-masv="${student.maSV}">Xóa</button>
+                        </td>
+                    </tr>
+                `);
+                $('#bangSinhVien tbody').html(rows);
+            }
+
+            // Các hàm xử lý sự kiện thêm, sửa, xóa sinh viên
+            $(document).on('click', '.editBtn', function() {
+                let maSV = $(this).data('masv');
+                // Mở modal và điền thông tin sinh viên cần sửa
+            });
+
+            $(document).on('click', '.deleteBtn', function() {
+                let maSV = $(this).data('masv');
+                // Xác nhận và xóa sinh viên
+            });
+
+            $('#saveBtn').click(function() {
+                // Lưu thông tin sinh viên
+            });
+
+            $('#cancelBtn').click(function() {
+                $('#formSinhVienModal').addClass('hidden');
+            });
+        });
+    </script>
 </body>
 </html>
